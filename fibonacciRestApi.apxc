@@ -1,0 +1,45 @@
+public class FibonacciRestApi {
+    
+    public static void RestCallout(){
+          // create http request
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://cunning-koala-ehutc4-dev-ed.lightning.force.com/lightning/r/TestObject__c/a007R00000zfZneQAE/');
+        request.setMethod('GET');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        HttpResponse response = http.send(request);
+         // get json and deserialize it       
+        if(response.getStatusCode() == 200){
+            Map<String, List<List<Integer>>> results = (Map<String, List<List<Integer>>>)JSON.deserializeUntyped(response.getBody()); 
+          List<List<Integer>> fibonacciArray = (List<List<Integer>>)results.get('fibonacci');
+            
+            ReverseOrder(fibonacciArray);
+     }
+  }
+   
+        public static void ReverseOrder(List<List<Integer>> fibonacciArray){
+          List<List<Integer>> reversedFibonacciMulti = new List<List<Integer>>();
+          List<Integer> listArr1 = new List<Integer>();
+          List<Integer> listArr2 = new List<Integer>();
+          List<Integer> listArr3 = new List<Integer>();
+       
+        //reverse order integers of in lists  
+        for(Integer m = 0; m <fibonacciArray.size(); m++){
+             List<Integer> listArray = fibonacciArray[m];
+             System.debug(listArray); 
+          for(Integer i = listArray.size()-1; i >= 0; i--){
+              if(m == 0) {
+                  listArr1.add(listArray[i]);
+              } else if(m == 1){
+                  listArr2.add(listArray[i]);
+              } else if(m == 2){
+                 listArr3.add(listArray[i]);   
+              }
+            }
+            reversedFibonacciMulti.add(listArr1);
+            reversedFibonacciMulti.add(listArr2);
+            reversedFibonacciMulti.add(listArr3);
+        }
+           System.debug(reversedFibonacciMulti); 
+    }
+}
