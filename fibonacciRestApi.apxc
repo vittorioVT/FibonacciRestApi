@@ -4,28 +4,33 @@ public class FibonacciRestApi {
           // create http request
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('https://cunning-koala-ehutc4-dev-ed.lightning.force.com/lightning/r/TestObject__c/a007R00000zfZneQAE/');
+        request.setEndpoint('https://scoutoutfit.com/fibonacci3.json');
         request.setMethod('GET');
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         HttpResponse response = http.send(request);
-         // get json and deserialize it       
-        if(response.getStatusCode() == 200){
-            Map<String, List<List<Integer>>> results = (Map<String, List<List<Integer>>>)JSON.deserializeUntyped(response.getBody()); 
-          List<List<Integer>> fibonacciArray = (List<List<Integer>>)results.get('fibonacci');
-                 ReverseOrder(fibonacciArray);
+        System.debug(response);
+        
+        // get json and deserialize it       
+       if(response.getStatusCode() == 200){
+            Map<String, Object> results = (Map<String, Object>)JSON.deserializeUntyped(response.getBody());
+            List<Object> fibonacciArray = (List<Object>)results.get('fibonacci');
+            System.debug(fibonacciArray);
+             
+            ReverseOrder(fibonacciArray);
      }
      return response;
   }
   
-    public static void ReverseOrder(List<List<Integer>> fibonacciArray){
-          List<List<Integer>> reversedFibonacciMulti = new List<List<Integer>>();
-          List<Integer> listArr1 = new List<Integer>();
-          List<Integer> listArr2 = new List<Integer>();
-          List<Integer> listArr3 = new List<Integer>();
+   public static void ReverseOrder(List<Object> fibonacciArray){
+            
+          List<Object> reversedFibonacciMulti = new List<Object>();
+          List<Object> listArr1 = new List<Object>();
+          List<Object> listArr2 = new List<Object>();
+          List<Object> listArr3 = new List<Object>();
        
         //reverse order integers of in lists  
         for(Integer m = 0; m <fibonacciArray.size(); m++){
-             List<Integer> listArray = fibonacciArray[m];
+             List<Object> listArray = (List<Object>)fibonacciArray[m];
              System.debug(listArray); 
           for(Integer i = listArray.size()-1; i >= 0; i--){
               if(m == 0) {
