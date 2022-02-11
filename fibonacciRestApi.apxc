@@ -1,6 +1,6 @@
 public class FibonacciRestApi {
-    
-    public static void RestCallout(){
+   
+     public static HttpResponse RestCallout(){
           // create http request
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -12,12 +12,12 @@ public class FibonacciRestApi {
         if(response.getStatusCode() == 200){
             Map<String, List<List<Integer>>> results = (Map<String, List<List<Integer>>>)JSON.deserializeUntyped(response.getBody()); 
           List<List<Integer>> fibonacciArray = (List<List<Integer>>)results.get('fibonacci');
-            
-            ReverseOrder(fibonacciArray);
+                 ReverseOrder(fibonacciArray);
      }
+     return response;
   }
-   
-        public static void ReverseOrder(List<List<Integer>> fibonacciArray){
+  
+    public static void ReverseOrder(List<List<Integer>> fibonacciArray){
           List<List<Integer>> reversedFibonacciMulti = new List<List<Integer>>();
           List<Integer> listArr1 = new List<Integer>();
           List<Integer> listArr2 = new List<Integer>();
