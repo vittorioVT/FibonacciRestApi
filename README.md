@@ -6,3 +6,4 @@ HttpRequest via Apex
 4. The class ClassDataLoader() extracts a list of lists from the FibonacciReverseOrder__c object and inserts them into a file - fbn2.csv
 5. Logging was made at all stages of the development by statements of the System.debug, as well as the Log Inspector.
 6. FibonacciRestApiTest class covers our code with tests
+7. Added static resource for HTTPCalloutMock interface - GetRestApiResource.txt
