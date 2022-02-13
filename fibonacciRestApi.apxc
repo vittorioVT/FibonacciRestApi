@@ -21,7 +21,7 @@ public class FibonacciRestApi {
      return response;
   }
   
-   public static void ReverseOrder(List<Object> fibonacciArray){
+   public static List<Object> ReverseOrder(List<Object> fibonacciArray){
             
           List<Object> reversedFibonacciMulti = new List<Object>();
           List<Object> listArr1 = new List<Object>();
@@ -41,10 +41,12 @@ public class FibonacciRestApi {
                  listArr3.add(listArray[i]);   
               }
             }
+          }
             reversedFibonacciMulti.add(listArr1);
             reversedFibonacciMulti.add(listArr2);
             reversedFibonacciMulti.add(listArr3);
-        }
+        
            System.debug(reversedFibonacciMulti); 
+           return reversedFibonacciMulti;
     }
 }
