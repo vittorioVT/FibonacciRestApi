@@ -1,0 +1,17 @@
+@isTest
+private class ClassDataLoaderTest {
+
+    @isTest static void testDataLoader(){
+       ContentVersion file = ClassDataLoader.DataLoad();   
+        System.assertEquals('fbn2.csv', file.Title, 'This title is wrong');
+                 
+        String csv = 'Id, Name, ListOfNumber__c\n';
+         for (List<FibonacciReverseOrder__c> fbn : [ SELECT Id, Name, ListOfNumber__c FROM FibonacciReverseOrder__c LIMIT 3 ]){
+         for (FibonacciReverseOrder__c fb : fbn) {
+           csv += fb.id + ' , ' + fb.ListOfNumber__c + ' , ' + fb.name.escapeCsv() + '\n';
+         }
+       } 
+        System.assertEquals(26, csv.length(), 'This size of Blob should be 26');        
+        System.assertEquals('Id', csv.left(2));        
+    }
+}
