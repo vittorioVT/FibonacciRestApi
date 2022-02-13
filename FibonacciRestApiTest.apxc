@@ -2,25 +2,34 @@
 private class FibonacciRestApiTest {
     @isTest static void testGetCallout(){
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+        
         mock.setStaticResource('GetRestApiResource');
         mock.setStatusCode(200);
         mock.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        // Connect the callout with a mock response
+       // Connect the callout with a mock response
         Test.setMock(HttpCalloutMock.class, mock);
-        // Call method to test
+       // Call method to test
         HttpResponse result = FibonacciRestApi.RestCallout();
-        //Verify mock response is not null
+       //Verify mock response is not null
         System.assertNotEquals(null, result, 'The callout returned a null response.');
-        //Verify status code
+       //Verify status code
         System.assertEquals(200, result.getStatusCode(), 'The status code is not 200');
-        //Verify content type
+       //Verify content type
         System.assertEquals('application/json;charset=UTF-8', 
                             result.getHeader('Content-Type'),
                            'The content type value is not expected.');
-        //Result contains 3 items
-         Map<String, Object> results = (Map<String, Object>)JSON.deserializeUntyped(result.getBody()); 
-         List<Object> fibonacciArray = (List<Object>)results.get('fibonacci');
-         System.assertEquals(0, fibonacciArray.size(), 'The array should only contains 3 items.');
+       //Result contains 3 items
+        Map<String, Object> results = (Map<String, Object>)JSON.deserializeUntyped(result.getBody()); 
+        List<Object> fibonacciArray = (List<Object>)results.get('fibonacci');
+        System.assertEquals(3, fibonacciArray.size(), 'The array should only contains 3 items.');
+       
+       //Verify result of ReverseOrder()
+        List<Object> resultArr = FibonacciRestApi.ReverseOrder(fibonacciArray);
+        System.assertEquals(3, resultArr.size());
+       //Verify reverse order
+        Object firstItem = resultArr.get(0);
+        String[] arrReverse = String.valueOf(firstItem).split(',');
+        Boolean reversIs = arrReverse[1] > arrReverse[2]? true: false;
+        System.assertEquals(true, reversIs);
     }
-    
 }
