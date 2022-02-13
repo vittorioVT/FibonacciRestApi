@@ -1,6 +1,6 @@
 public class ClassDataLoader {
     
-    public static void DataLoad(){
+    public static ContentVersion DataLoad(){
     String csv = 'Id, Name, ListOfNumber__c\n';
     for (List<FibonacciReverseOrder__c> fbn : [ SELECT Id, Name, ListOfNumber__c FROM FibonacciReverseOrder__c LIMIT 3 ]){
         (System.debug(fbn));
@@ -8,15 +8,13 @@ public class ClassDataLoader {
     csv += fb.id + ' , ' + fb.ListOfNumber__c + ' , ' + fb.name.escapeCsv() + '\n';
     }
  }
- 
  ContentVersion file = new ContentVersion(
    title = 'fbn2.csv',
    versionData = Blob.valueOf(csv),
    pathOnClient = '/fbn2.csv'
  );
- 
  insert file;
  System.debug(file);
+ return file;  
   }
-    
 }
